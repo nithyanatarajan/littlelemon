@@ -1,0 +1,19 @@
+:root {
+  --themegreen: #495E57;
+  --themeyellow: #F4CE14;
+}
+
+/* Reset default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.logo img {
+  height: 5rem;
+}
+
+.hero img {
+  height: 20rem;
+}
