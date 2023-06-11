@@ -1,0 +1,31 @@
+.hero {
+  background-color: var(--themegreen);
+  margin: var(--marginreset);
+  padding: 2rem 2rem 2rem 0;
+}
+
+.hero-section {
+  display: flex;
+  margin: var(--marginxy);
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.hero-image {
+  display: flex;
+}
+
+.hero-image img {
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}
+
+.hero-content a {
+  margin-top: 3rem;
+}

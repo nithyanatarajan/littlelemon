@@ -1,6 +1,11 @@
 :root {
   --themegreen: #495E57;
   --themeyellow: #F4CE14;
+  --themehighlightlight: #EDEFEE;
+  --themehighlightdark: #333333;
+  --marginxy: 0 15rem;
+  --marginreset: 0 -15rem;
+  --border-radius: 20px;
 }
 
 /* Reset default margin and padding */
@@ -10,10 +15,13 @@
   box-sizing: border-box;
 }
 
-.logo img {
-  height: 5rem;
+body {
+  margin: var(--marginxy);
 }
 
-.hero img {
-  height: 20rem;
+@media only screen and (max-width: 767px) {
+  :root {
+    --marginxy: 0 1rem;
+    --marginreset: 0 -1rem;
+  }
 }
