@@ -1,10 +1,12 @@
 :root {
   --themegreen: #495E57;
   --themeyellow: #F4CE14;
+  --themewhite: #FFFFFF;
+  --themeblack: #000000;
   --themehighlightlight: #EDEFEE;
   --themehighlightdark: #333333;
-  --marginxy: 0 15rem;
-  --marginreset: 0 -15rem;
+  --marginxy: 0 20rem;
+  --marginreset: 0 -20rem;
   --border-radius: 20px;
 }
 
@@ -17,6 +19,7 @@
 
 body {
   margin: var(--marginxy);
+  font-family: "Karla", sans-serif;
 }
 
 @media only screen and (max-width: 767px) {
@@ -24,4 +27,97 @@ body {
     --marginxy: 0 1rem;
     --marginreset: 0 -1rem;
   }
+}
+
+/* Assuming base font size of 16px=12pt=1rem */
+
+/* Display Title */
+h1, .display-title {
+  font-family: "Markazi Text", serif;
+  font-weight: 500;
+  font-size: 4rem; /* 64px = 4rem */
+}
+
+/* Sub title */
+h2, .sub-title {
+  font-family: "Markazi Text", serif;
+  font-weight: 400;
+  font-size: 2.5rem; /* 40px = 2.5rem */
+}
+
+/* Lead text - to catch attention!*/
+nav, .lead-text {
+  font-family: "Karla", sans-serif;
+  font-weight: 500;
+  font-size: 1.125rem; /* 18px = 1.125rem */
+}
+
+/* SECTION TITLE */
+.section-title {
+  font-family: "Karla", sans-serif;
+  text-transform: uppercase;
+  font-size: 1.25rem; /* 20px = 1.25rem */
+  font-weight: 800;
+}
+
+/* This weeks specials! */
+.specials-title {
+  font-family: "Karla", sans-serif;
+  font-size: 1rem; /* 16px = 1rem */
+  font-weight: 800;
+}
+
+/* Card Title */
+.card-title {
+  font-family: "Karla", sans-serif;
+  font-size: 1.125rem; /* 18px = 1.125rem */
+  font-weight: 700;
+}
+
+/* Paragraph text */
+p, .paragraph-text {
+  font-family: "Karla", sans-serif;
+  font-size: 1rem; /* 16px = 1rem */
+  line-height: 1.5;
+  max-width: 65ch;
+}
+
+/* Highlight text */
+.highlight-text {
+  font-family: "Karla", sans-serif;
+  font-weight: 500;
+  font-size: 1rem; /* 16px = 1rem */
+}
+
+/* Anchor as buttons */
+
+.primary-button, .secondary-button {
+  border-radius: var(--border-radius);
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1rem;
+  outline: none;
+  text-align: center;
+  text-decoration: none;
+  width: 12rem;
+  line-height: 3rem;
+  cursor: pointer;
+}
+
+.primary-button {
+  background-color: var(--themeyellow);
+  color: var(--themeblack);
+}
+
+.secondary-button {
+  background-color: var(--themegreen);
+  color: var(--themewhite);
+}
+
+.primary-button:hover {
+  color: var(--themegreen);
+}
+
+.secondary-button:hover {
+  color: var(--themeyellow);
 }

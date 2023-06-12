@@ -14,8 +14,8 @@ const Main = () => {
               We are a family owned Mediterranean restaurant, focused on
               traditional recipes served with a modern twist.
             </p>
-            <a href='#reserve' role='button' className='button'>
-              Reserve a table now
+            <a href='#reserve' role='button' className='primary-button'>
+              Reserve a table
             </a>
           </div>
           <div className='hero-image'>
