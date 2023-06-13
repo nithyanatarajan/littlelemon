@@ -1,24 +1,26 @@
+import { NavLink } from 'react-router-dom';
+
 const Nav = () => {
   return (
     <nav className='nav'>
       <ul>
         <li>
-          <a href='#home'>Home</a>
+          <NavLink to=''>Home</NavLink>
         </li>
         <li>
-          <a href='#about'>About</a>
+          <NavLink to='about'>About</NavLink>
         </li>
         <li>
-          <a href='#menu'>Menu</a>
+          <NavLink to='menu'>Menu</NavLink>
         </li>
         <li>
-          <a href='#reservations'>Reservations</a>
+          <NavLink to='reservations'>Reservations</NavLink>
         </li>
         <li>
-          <a href='#order'>Order Online</a>
+          <NavLink to='order'>Order Online</NavLink>
         </li>
         <li>
-          <a href='#login'>Login</a>
+          <NavLink to='login'>Login</NavLink>
         </li>
       </ul>
     </nav>
