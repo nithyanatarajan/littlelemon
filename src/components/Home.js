@@ -1,8 +1,8 @@
 import FoodImg from '../assets/restaurantfood.jpg';
 import React from 'react';
-import './Main.css';
+import './Home.css';
 
-const Main = () => {
+const Home = () => {
   return (
     <main>
       <section className='hero'>
@@ -26,4 +26,4 @@ const Main = () => {
     </main>
   );
 };
-export default Main;
+export default Home;
