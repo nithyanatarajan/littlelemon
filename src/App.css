@@ -5,6 +5,8 @@
   --themeblack: #000000;
   --themehighlightlight: #edefee;
   --themehighlightdark: #333333;
+  --themesecondarydark: #EE9972;
+  --themesecondarylight: #FBDABB;
   --marginxy: 0 20rem;
   --marginreset: 0 -20rem;
   --border-radius: 20px;
@@ -98,6 +100,7 @@ p,
 .primary-button,
 .secondary-button {
   border-radius: var(--border-radius);
+  border: 0;
   display: inline-block;
   font-weight: bold;
   font-size: 1rem;
@@ -107,6 +110,11 @@ p,
   width: 12rem;
   line-height: 3rem;
   cursor: pointer;
+}
+
+.primary-button:disabled,
+.secondary-button:disabled {
+  background-color: var(--themehighlightlight);
 }
 
 .primary-button {
@@ -119,10 +127,10 @@ p,
   color: var(--themewhite);
 }
 
-.primary-button:hover {
+.primary-button:hover:enabled {
   color: var(--themegreen);
 }
 
-.secondary-button:hover {
+.secondary-button:hover:enabled {
   color: var(--themeyellow);
 }
