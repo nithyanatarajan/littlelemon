@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import FoodImg from '../assets/restaurantfood.jpg';
-import './Home.css';
+import './HomePage.css';
 
-const Home = () => {
+const HomePage = () => {
   const navigate = useNavigate();
 
   const handleReservationClick = () => {
@@ -37,4 +37,4 @@ const Home = () => {
     </main>
   );
 };
-export default Home;
+export default HomePage;
