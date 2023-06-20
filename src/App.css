@@ -7,8 +7,8 @@
   --themehighlightdark: #333333;
   --themesecondarydark: #EE9972;
   --themesecondarylight: #FBDABB;
-  --marginxy: 0 20rem;
-  --marginreset: 0 -20rem;
+  --marginxy: 0 10vw;
+  --marginreset: 0 -10vw;
   --border-radius: 20px;
 }
 
@@ -22,13 +22,6 @@
 body {
   margin: var(--marginxy);
   font-family: 'Karla', sans-serif;
-}
-
-@media only screen and (max-width: 767px) {
-  :root {
-    --marginxy: 0 1rem;
-    --marginreset: 0 -1rem;
-  }
 }
 
 /* Assuming base font size of 16px=12pt=1rem */
