@@ -18,13 +18,23 @@
   flex: 1;
 }
 
-.form-row > input[type='text'] {
+.form-row > .form-input {
   flex: 4;
-  border: 2px solid var(--themegreen);
-  border-radius: var(--input-border-radius);
   height: 2rem;
+}
+
+.form-input > input[type='text'] {
+  border: 1px solid var(--themegreen);
+  border-radius: var(--input-border-radius);
+  height: 100%;
+  width: 100%;
 }
 
 .form > button {
   margin-top: 2rem;
+}
+
+.form-error {
+  padding-top: 0.5rem;
+  color: var(--themeerror);
 }
