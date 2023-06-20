@@ -10,27 +10,39 @@ describe('ReservationsForm', () => {
 
       const firstNameInput = screen.getByLabelText('First Name');
       const lastNameInput = screen.getByLabelText('Last Name');
+      const dateInput = screen.getByLabelText('Choose date');
+      const timeInput = screen.getByLabelText('Choose time');
+      const guestsInput = screen.getByLabelText('Number of guests');
+      const occasionInput = screen.getByLabelText('Occasion');
+
       const button = screen.getByRole('button', { name: 'Reserve a Table' });
 
       expect(firstNameInput).toBeInTheDocument();
       expect(lastNameInput).toBeInTheDocument();
+      expect(dateInput).toBeInTheDocument();
+      expect(timeInput).toBeInTheDocument();
+      expect(guestsInput).toBeInTheDocument();
+      expect(occasionInput).toBeInTheDocument();
       expect(button).toBeInTheDocument();
       expect(button).toBeDisabled();
     });
-  });
-  describe('invalid form', () => {
-    test('should disable button when only firstname is given', async () => {
-      const handleSubmit = jest.fn();
-      render(<ReservationsForm onSubmit={handleSubmit} />);
-      const user = userEvent.setup();
 
-      const firstNameInput = screen.getByLabelText('First Name');
-      const button = screen.getByRole('button', { name: 'Reserve a Table' });
+    test('should render the form with no extra fields', () => {
+      render(<ReservationsForm onSubmit={() => {}} />);
 
-      await user.type(firstNameInput, 'John');
+      const inputElements = screen.getAllByRole('textbox');
+      const buttonElements = screen.getAllByRole('button');
+      const dropdownElements = screen.getAllByRole('combobox');
+      const numberElements = screen.getAllByRole('spinbutton');
 
-      expect(button).toBeDisabled();
+      expect(inputElements.length).toBe(2);
+      expect(buttonElements.length).toBe(1);
+      expect(dropdownElements.length).toBe(2);
+      expect(numberElements.length).toBe(1);
     });
+  });
+
+  describe('invalid form', () => {
     const testErrorMessageOnBlur = async (inputLabel, errorMessage) => {
       const handleSubmit = jest.fn();
       render(<ReservationsForm onSubmit={handleSubmit} />);
@@ -56,6 +68,18 @@ describe('ReservationsForm', () => {
     test('should show error message when lastname is empty and focus moves out', async () => {
       await testErrorMessageOnBlur('Last Name', /Last Name is required/i);
     });
+
+    test('should show error message when date is empty and focus moves out', async () => {
+      await testErrorMessageOnBlur('Choose date', /Date is required/i);
+    });
+
+    test('should show error message when time is empty and focus moves out', async () => {
+      await testErrorMessageOnBlur('Choose time', /Time is required/i);
+    });
+
+    test('should show error message when occasion is empty and focus moves out', async () => {
+      await testErrorMessageOnBlur('Occasion', /Occasion is required/i);
+    });
   });
 
   describe('valid form', () => {
@@ -66,10 +90,18 @@ describe('ReservationsForm', () => {
 
       const firstNameInput = screen.getByLabelText('First Name');
       const lastNameInput = screen.getByLabelText('Last Name');
+      const dateInput = screen.getByLabelText('Choose date');
+      const timeInput = screen.getByLabelText('Choose time');
+      const guestsInput = screen.getByLabelText('Number of guests');
+      const occasionInput = screen.getByLabelText('Occasion');
       const button = screen.getByRole('button', { name: 'Reserve a Table' });
 
       await user.type(firstNameInput, 'John');
       await user.type(lastNameInput, 'Dee');
+      await user.type(dateInput, '2023-06-20');
+      await user.selectOptions(timeInput, '17:00');
+      await user.type(guestsInput, '2');
+      await user.selectOptions(occasionInput, 'Birthday');
 
       expect(button).not.toBeDisabled();
 
@@ -79,12 +111,20 @@ describe('ReservationsForm', () => {
         expect(handleSubmit).toHaveBeenCalledWith({
           firstName: 'John',
           lastName: 'Dee',
+          date: '2023-06-20',
+          time: '17:00',
+          guests: 12,
+          occasion: 'Birthday',
         });
       });
 
       await waitFor(() => {
         expect(firstNameInput.value).toBe('');
         expect(lastNameInput.value).toBe('');
+        expect(dateInput.value).toBe('');
+        expect(timeInput.value).toBe('');
+        expect(guestsInput.value).toBe('1');
+        expect(occasionInput.value).toBe('');
       });
     });
   });

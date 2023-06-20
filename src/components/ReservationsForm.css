@@ -23,11 +23,13 @@
   height: 2rem;
 }
 
-.form-input > input[type='text'] {
+.form-input > input, select {
   border: 1px solid var(--themegreen);
   border-radius: var(--input-border-radius);
   height: 100%;
   width: 100%;
+  background-color: var(--themewhite);
+  padding: 0 0.5rem;
 }
 
 .form > button {

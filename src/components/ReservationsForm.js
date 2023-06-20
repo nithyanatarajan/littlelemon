@@ -1,12 +1,28 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/jsx-props-no-spreading */
 import PropTypes from 'prop-types';
 import './ReservationsForm.css';
+import { useState } from 'react';
 import { useFormik } from 'formik';
 
 const ReservationsForm = ({ onSubmit }) => {
   const initialValues = {
     firstName: '',
     lastName: '',
+    date: '',
+    time: '',
+    guests: 1,
+    occasion: '',
   };
+
+  const [availableTimes] = useState([
+    '17:00',
+    '18:00',
+    '19:00',
+    '20:00',
+    '21:00',
+    '22:00',
+  ]);
 
   const handleSubmit = (values, { resetForm }) => {
     onSubmit(values);
@@ -24,6 +40,18 @@ const ReservationsForm = ({ onSubmit }) => {
       errors.lastName = 'Last Name is required';
     }
 
+    if (!values.date) {
+      errors.date = 'Date is required';
+    }
+
+    if (!values.time) {
+      errors.time = 'Time is required';
+    }
+
+    if (!values.occasion) {
+      errors.occasion = 'Occasion is required';
+    }
+
     return errors;
   };
 
@@ -36,14 +64,12 @@ const ReservationsForm = ({ onSubmit }) => {
   return (
     <form className='form' onSubmit={formik.handleSubmit}>
       <div className='form-row'>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label htmlFor='firstName'>First Name</label>
         <div className='form-input'>
           <input
             type='text'
             id='firstName'
             name='firstName'
-            /* eslint-disable-next-line react/jsx-props-no-spreading */
             {...formik.getFieldProps('firstName')}
             required
           />
@@ -54,19 +80,86 @@ const ReservationsForm = ({ onSubmit }) => {
         </div>
       </div>
       <div className='form-row'>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label htmlFor='lastName'>Last Name</label>
         <div className='form-input'>
           <input
             type='text'
             id='lastName'
             name='lastName'
-            /* eslint-disable-next-line react/jsx-props-no-spreading */
             {...formik.getFieldProps('lastName')}
             required
           />
           {formik.touched.lastName && formik.errors.lastName && (
             <div className='form-error'>{formik.errors.lastName}</div>
+          )}
+        </div>
+      </div>
+      <div className='form-row'>
+        <label htmlFor='date'>Choose date</label>
+        <div className='form-input'>
+          <input
+            type='date'
+            id='date'
+            name='date'
+            {...formik.getFieldProps('date')}
+            required
+          />
+          {formik.touched.date && formik.errors.date && (
+            <div className='form-error'>{formik.errors.date}</div>
+          )}
+        </div>
+      </div>
+      <div className='form-row'>
+        <label htmlFor='time'>Choose time</label>
+        <div className='form-input'>
+          <select
+            id='time'
+            name='time'
+            {...formik.getFieldProps('time')}
+            required
+          >
+            <option value=''>Select a time</option>
+            {availableTimes.map((time) => (
+              <option key={time} value={time}>
+                {time}
+              </option>
+            ))}
+          </select>
+          {formik.touched.time && formik.errors.time && (
+            <div className='form-error'>{formik.errors.time}</div>
+          )}
+        </div>
+      </div>
+      <div className='form-row'>
+        <label htmlFor='guests'>Number of guests</label>
+        <div className='form-input'>
+          <input
+            type='number'
+            placeholder='1'
+            min='1'
+            max='10'
+            id='guests'
+            name='guests'
+            {...formik.getFieldProps('guests')}
+            required
+          />
+        </div>
+      </div>
+      <div className='form-row'>
+        <label htmlFor='occasion'>Occasion</label>
+        <div className='form-input'>
+          <select
+            id='occasion'
+            name='occasion'
+            {...formik.getFieldProps('occasion')}
+            required
+          >
+            <option value=''>Select an occasion</option>
+            <option value='Birthday'>Birthday</option>
+            <option value='Anniversary'>Anniversary</option>
+          </select>
+          {formik.touched.occasion && formik.errors.occasion && (
+            <div className='form-error'>{formik.errors.occasion}</div>
           )}
         </div>
       </div>
