@@ -10,6 +10,7 @@
   --marginxy: 0 10vw;
   --marginreset: 0 -10vw;
   --border-radius: 20px;
+  --input-border-radius: 8px;
 }
 
 /* Reset default margin and padding */

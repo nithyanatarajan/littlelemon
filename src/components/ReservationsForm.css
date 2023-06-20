@@ -1,0 +1,30 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  padding: 2rem;
+  border: 1px dotted var(--themegreen);
+  border-radius: var(--input-border-radius);
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.form-row > label {
+  flex: 1;
+}
+
+.form-row > input[type='text'] {
+  flex: 4;
+  border: 2px solid var(--themegreen);
+  border-radius: var(--input-border-radius);
+  height: 2rem;
+}
+
+.form > button {
+  margin-top: 2rem;
+}
