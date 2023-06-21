@@ -6,6 +6,18 @@ import { useState } from 'react';
 import { useFormik } from 'formik';
 
 const ReservationsForm = ({ onSubmit }) => {
+  const [availableTimes, setAvailableTimes] = useState([
+    '17:00',
+    '18:00',
+    '19:00',
+    '20:00',
+    '21:00',
+    '22:00',
+  ]);
+  const updateAvailableTimes = (values) => {
+    // prettier-ignore
+    setAvailableTimes((prevTimes) => prevTimes.filter((time) => time !== values.time));
+  };
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -14,21 +26,6 @@ const ReservationsForm = ({ onSubmit }) => {
     guests: 1,
     occasion: '',
   };
-
-  const [availableTimes] = useState([
-    '17:00',
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-    '22:00',
-  ]);
-
-  const handleSubmit = (values, { resetForm }) => {
-    onSubmit(values);
-    resetForm();
-  };
-
   const validateForm = (values) => {
     const errors = {};
 
@@ -53,6 +50,12 @@ const ReservationsForm = ({ onSubmit }) => {
     }
 
     return errors;
+  };
+
+  const handleSubmit = (values, { resetForm }) => {
+    onSubmit(values);
+    updateAvailableTimes(values);
+    resetForm();
   };
 
   const formik = useFormik({
