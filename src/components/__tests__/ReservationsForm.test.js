@@ -6,7 +6,13 @@ import ReservationsForm from '../ReservationsForm';
 describe('ReservationsForm', () => {
   describe('render form fields', () => {
     test('should render the form with fields and a submit button', () => {
-      render(<ReservationsForm onSubmit={() => {}} />);
+      render(
+        <ReservationsForm
+          onSubmit={() => {}}
+          availableTimesFor={() => ['17:00', '18:00', '19:00']}
+          updateAvailableTimesFor={() => {}}
+        />
+      );
 
       const firstNameInput = screen.getByLabelText('First Name');
       const lastNameInput = screen.getByLabelText('Last Name');
@@ -28,7 +34,13 @@ describe('ReservationsForm', () => {
     });
 
     test('should render the form with no extra fields', () => {
-      render(<ReservationsForm onSubmit={() => {}} />);
+      render(
+        <ReservationsForm
+          onSubmit={() => {}}
+          availableTimesFor={() => ['17:00', '18:00', '19:00']}
+          updateAvailableTimesFor={() => {}}
+        />
+      );
 
       const inputElements = screen.getAllByRole('textbox');
       const buttonElements = screen.getAllByRole('button');
@@ -45,7 +57,13 @@ describe('ReservationsForm', () => {
   describe('invalid form', () => {
     const testErrorMessageOnBlur = async (inputLabel, errorMessage) => {
       const handleSubmit = jest.fn();
-      render(<ReservationsForm onSubmit={handleSubmit} />);
+      render(
+        <ReservationsForm
+          onSubmit={handleSubmit}
+          availableTimesFor={() => ['17:00', '18:00', '19:00']}
+          updateAvailableTimesFor={() => {}}
+        />
+      );
 
       const input = screen.getByLabelText(inputLabel);
       const button = screen.getByRole('button', { name: 'Reserve a Table' });
@@ -83,9 +101,20 @@ describe('ReservationsForm', () => {
   });
 
   describe('valid form', () => {
-    test('should submit the form with valid data and clear on submission', async () => {
+    test('should submit the form with valid data', async () => {
       const handleSubmit = jest.fn();
-      render(<ReservationsForm onSubmit={handleSubmit} />);
+      const availableTimesFor = jest.fn();
+      const updateAvailableTimesFor = jest.fn();
+
+      availableTimesFor.mockImplementation(() => ['17:00', '18:00', '19:00']);
+
+      render(
+        <ReservationsForm
+          onSubmit={handleSubmit}
+          availableTimesFor={availableTimesFor}
+          updateAvailableTimesFor={updateAvailableTimesFor}
+        />
+      );
       const user = userEvent.setup();
 
       const firstNameInput = screen.getByLabelText('First Name');
@@ -119,17 +148,25 @@ describe('ReservationsForm', () => {
       });
 
       await waitFor(() => {
-        expect(firstNameInput.value).toBe('');
-        expect(lastNameInput.value).toBe('');
-        expect(dateInput.value).toBe('');
-        expect(timeInput.value).toBe('');
-        expect(guestsInput.value).toBe('1');
-        expect(occasionInput.value).toBe('');
+        expect(availableTimesFor).toHaveBeenCalledWith('2023-06-20');
+      });
+
+      await waitFor(() => {
+        expect(updateAvailableTimesFor).toHaveBeenCalledWith(
+          '2023-06-20',
+          '17:00'
+        );
       });
     });
 
-    test('should check availableTimes state changes', async () => {
-      render(<ReservationsForm onSubmit={() => {}} />);
+    test('should clear form on submission', async () => {
+      render(
+        <ReservationsForm
+          onSubmit={() => {}}
+          availableTimesFor={() => ['17:00', '18:00', '19:00']}
+          updateAvailableTimesFor={() => {}}
+        />
+      );
       const user = userEvent.setup();
 
       const firstNameInput = screen.getByLabelText('First Name');
@@ -140,11 +177,10 @@ describe('ReservationsForm', () => {
       const occasionInput = screen.getByLabelText('Occasion');
       const button = screen.getByRole('button', { name: 'Reserve a Table' });
 
-      expect(screen.queryByRole('option', { name: '18:00' })).not.toBeNull();
       await user.type(firstNameInput, 'John');
       await user.type(lastNameInput, 'Dee');
       await user.type(dateInput, '2023-06-20');
-      await user.selectOptions(timeInput, '18:00');
+      await user.selectOptions(timeInput, '17:00');
       await user.type(guestsInput, '2');
       await user.selectOptions(occasionInput, 'Birthday');
 
@@ -153,7 +189,12 @@ describe('ReservationsForm', () => {
       await user.click(button);
 
       await waitFor(() => {
-        expect(screen.queryByRole('option', { name: '18:00' })).toBeNull();
+        expect(firstNameInput.value).toBe('');
+        expect(lastNameInput.value).toBe('');
+        expect(dateInput.value).toBe('');
+        expect(timeInput.value).toBe('');
+        expect(guestsInput.value).toBe('1');
+        expect(occasionInput.value).toBe('');
       });
     });
   });

@@ -2,22 +2,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import PropTypes from 'prop-types';
 import './ReservationsForm.css';
-import { useState } from 'react';
 import { useFormik } from 'formik';
+import { useMemo } from 'react';
 
-const ReservationsForm = ({ onSubmit }) => {
-  const [availableTimes, setAvailableTimes] = useState([
-    '17:00',
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-    '22:00',
-  ]);
-  const updateAvailableTimes = (values) => {
-    // prettier-ignore
-    setAvailableTimes((prevTimes) => prevTimes.filter((time) => time !== values.time));
-  };
+const ReservationsForm = ({
+  onSubmit,
+  availableTimesFor,
+  updateAvailableTimesFor,
+}) => {
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -54,7 +46,7 @@ const ReservationsForm = ({ onSubmit }) => {
 
   const handleSubmit = (values, { resetForm }) => {
     onSubmit(values);
-    updateAvailableTimes(values);
+    updateAvailableTimesFor(values.date, values.time);
     resetForm();
   };
 
@@ -63,6 +55,11 @@ const ReservationsForm = ({ onSubmit }) => {
     onSubmit: handleSubmit,
     validate: validateForm,
   });
+
+  const availableTimes = useMemo(
+    () => availableTimesFor(formik.values.date),
+    [formik.values.date]
+  );
 
   return (
     <form className='form' onSubmit={formik.handleSubmit}>
@@ -178,6 +175,10 @@ const ReservationsForm = ({ onSubmit }) => {
   );
 };
 
-ReservationsForm.propTypes = { onSubmit: PropTypes.func.isRequired };
+ReservationsForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  availableTimesFor: PropTypes.func.isRequired,
+  updateAvailableTimesFor: PropTypes.func.isRequired,
+};
 
 export default ReservationsForm;
