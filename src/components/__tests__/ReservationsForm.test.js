@@ -9,7 +9,7 @@ describe('ReservationsForm', () => {
       render(
         <ReservationsForm
           onSubmit={() => {}}
-          availableTimesFor={() => ['17:00', '18:00', '19:00']}
+          availableTimes={['17:00', '18:00', '19:00']}
           updateAvailableTimesFor={() => {}}
         />
       );
@@ -37,7 +37,7 @@ describe('ReservationsForm', () => {
       render(
         <ReservationsForm
           onSubmit={() => {}}
-          availableTimesFor={() => ['17:00', '18:00', '19:00']}
+          availableTimes={['17:00', '18:00', '19:00']}
           updateAvailableTimesFor={() => {}}
         />
       );
@@ -60,7 +60,7 @@ describe('ReservationsForm', () => {
       render(
         <ReservationsForm
           onSubmit={handleSubmit}
-          availableTimesFor={() => ['17:00', '18:00', '19:00']}
+          availableTimes={['17:00', '18:00', '19:00']}
           updateAvailableTimesFor={() => {}}
         />
       );
@@ -103,16 +103,12 @@ describe('ReservationsForm', () => {
   describe('valid form', () => {
     test('should submit the form with valid data', async () => {
       const handleSubmit = jest.fn();
-      const availableTimesFor = jest.fn();
-      const updateAvailableTimesFor = jest.fn();
-
-      availableTimesFor.mockImplementation(() => ['17:00', '18:00', '19:00']);
 
       render(
         <ReservationsForm
           onSubmit={handleSubmit}
-          availableTimesFor={availableTimesFor}
-          updateAvailableTimesFor={updateAvailableTimesFor}
+          availableTimes={['17:00', '18:00', '19:00']}
+          updateAvailableTimesFor={() => {}}
         />
       );
       const user = userEvent.setup();
@@ -146,24 +142,13 @@ describe('ReservationsForm', () => {
           occasion: 'Birthday',
         });
       });
-
-      await waitFor(() => {
-        expect(availableTimesFor).toHaveBeenCalledWith('2023-06-20');
-      });
-
-      await waitFor(() => {
-        expect(updateAvailableTimesFor).toHaveBeenCalledWith(
-          '2023-06-20',
-          '17:00'
-        );
-      });
     });
 
     test('should clear form on submission', async () => {
       render(
         <ReservationsForm
           onSubmit={() => {}}
-          availableTimesFor={() => ['17:00', '18:00', '19:00']}
+          availableTimes={['17:00', '18:00', '19:00']}
           updateAvailableTimesFor={() => {}}
         />
       );

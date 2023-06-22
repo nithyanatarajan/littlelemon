@@ -1,12 +1,38 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ReservationsPage from '../ReservationsPage';
+import { fetchAPI } from '../../assets/api';
+
+jest.mock('../../assets/api');
+
+function setupStubs() {
+  jest.spyOn(console, 'log').mockImplementation(() => {});
+  fetchAPI.mockImplementation((date) => {
+    const dateStr = date.toISOString().substring(0, 10);
+    if (dateStr === '2023-06-20') {
+      return ['18:00', '18:30'];
+    }
+    if (dateStr === '2023-06-21') {
+      return ['17:00', '18:30'];
+    }
+    return ['19:00'];
+  });
+}
+
+function resetStubs() {
+  fetchAPI.mockReset();
+  console.log.mockRestore();
+}
 
 describe('ReservationsPage', () => {
-  test('should check availableTimes state changes', async () => {
-    const consoleLog = jest.spyOn(console, 'log').mockImplementation(() => {});
+  afterEach(() => {
+    resetStubs();
+  });
 
+  test('should check availableTimes state changes', async () => {
+    setupStubs();
     render(<ReservationsPage />);
     const user = userEvent.setup();
 
@@ -18,10 +44,15 @@ describe('ReservationsPage', () => {
     const occasionInput = screen.getByLabelText('Occasion');
     const button = screen.getByRole('button', { name: 'Reserve a Table' });
 
-    expect(screen.queryByRole('option', { name: '18:00' })).not.toBeNull();
+    expect(await screen.queryByRole('option', { name: '18:00' })).toBeNull();
     await user.type(firstNameInput, 'John');
     await user.type(lastNameInput, 'Dee');
     await user.type(dateInput, '2023-06-20');
+    await user.tab();
+    await waitFor(() => {
+      expect(screen.queryByRole('option', { name: '18:00' })).not.toBeNull();
+    });
+
     await user.selectOptions(timeInput, '18:00');
     await user.clear(guestsInput);
     await user.type(guestsInput, '2');
@@ -32,7 +63,7 @@ describe('ReservationsPage', () => {
     await user.click(button);
 
     await waitFor(() => {
-      expect(consoleLog).toBeCalledWith({
+      expect(console.log).toBeCalledWith({
         firstName: 'John',
         lastName: 'Dee',
         date: '2023-06-20',
@@ -42,10 +73,10 @@ describe('ReservationsPage', () => {
       });
     });
 
+    await user.type(dateInput, '2023-06-21');
+    await user.tab();
     await waitFor(() => {
-      expect(screen.queryByRole('option', { name: '18:00' })).toBeNull();
+      expect(screen.queryByRole('option', { name: '17:00' })).not.toBeNull();
     });
-
-    consoleLog.mockReset();
   });
 });

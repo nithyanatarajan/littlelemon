@@ -3,11 +3,10 @@
 import PropTypes from 'prop-types';
 import './ReservationsForm.css';
 import { useFormik } from 'formik';
-import { useMemo } from 'react';
 
 const ReservationsForm = ({
   onSubmit,
-  availableTimesFor,
+  availableTimes,
   updateAvailableTimesFor,
 }) => {
   const initialValues = {
@@ -46,7 +45,6 @@ const ReservationsForm = ({
 
   const handleSubmit = (values, { resetForm }) => {
     onSubmit(values);
-    updateAvailableTimesFor(values.date, values.time);
     resetForm();
   };
 
@@ -56,10 +54,10 @@ const ReservationsForm = ({
     validate: validateForm,
   });
 
-  const availableTimes = useMemo(
-    () => availableTimesFor(formik.values.date),
-    [formik.values.date]
-  );
+  const handleDateChange = (e) => {
+    formik.handleBlur(e);
+    updateAvailableTimesFor(e.target.value);
+  };
 
   return (
     <form className='form' onSubmit={formik.handleSubmit}>
@@ -103,6 +101,7 @@ const ReservationsForm = ({
             name='date'
             {...formik.getFieldProps('date')}
             required
+            onBlur={handleDateChange}
           />
           {formik.touched.date && formik.errors.date && (
             <div className='form-error'>{formik.errors.date}</div>
@@ -177,7 +176,7 @@ const ReservationsForm = ({
 
 ReservationsForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  availableTimesFor: PropTypes.func.isRequired,
+  availableTimes: PropTypes.arrayOf(PropTypes.string).isRequired,
   updateAvailableTimesFor: PropTypes.func.isRequired,
 };
 

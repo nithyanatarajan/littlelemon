@@ -13,26 +13,21 @@ const ReservationsPage = () => {
     timesInitialiser
   );
 
-  const updateAvailableTimesFor = (date, time) => {
-    dispatch({ date, time });
-  };
-
-  const availableTimesFor = (date) => {
-    // eslint-disable-next-line no-console
-    console.log('availableTimesFor', date);
-    return availableTimes;
+  const updateAvailableTimesFor = (date) => {
+    dispatch({ type: 'FETCH_AVAILABLE_TIMES', date });
   };
 
   const handleSubmit = (values) => {
     // eslint-disable-next-line no-console
     console.log(values);
   };
+
   return (
     <div className='form-wrapper'>
       <h3>Reserve a table</h3>
       <ReservationsForm
         onSubmit={handleSubmit}
-        availableTimesFor={availableTimesFor}
+        availableTimes={availableTimes}
         updateAvailableTimesFor={updateAvailableTimesFor}
       />
     </div>

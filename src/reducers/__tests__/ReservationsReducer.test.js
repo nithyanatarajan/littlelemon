@@ -1,25 +1,46 @@
-import { timesReducer, timesInitialiser } from '../ReservationsReducer';
+import { timesInitialiser, timesReducer } from '../ReservationsReducer';
+import { fetchAPI } from '../../assets/api';
+
+jest.mock('../../assets/api');
 
 describe('ReservationsReducer', () => {
-  test('should initialise state', () => {
-    const initialisedState = timesInitialiser();
-
-    expect(initialisedState).toEqual([
-      '17:00',
-      '18:00',
-      '19:00',
-      '20:00',
-      '21:00',
-      '22:00',
-    ]);
+  beforeEach(() => {
+    fetchAPI.mockReset();
   });
 
-  test('should update state', () => {
-    const availableTimes = ['17:00', '18:00', '19:00'];
-    const action = { time: '17:00' };
+  test('should initialise state', () => {
+    fetchAPI.mockReturnValue(['17:00', '18:30']);
 
-    const modifiedState = timesReducer(availableTimes, action);
+    const initialisedState = timesInitialiser();
 
-    expect(modifiedState).toEqual(['18:00', '19:00']);
+    expect(initialisedState).toEqual(['17:00', '18:30']);
+  });
+
+  describe('timesReducer', () => {
+    test('should fetch time for a given date', () => {
+      fetchAPI.mockReturnValue(['17:00', '18:30']);
+      const state = [];
+      const action = {
+        date: '2022-06-22',
+        type: 'FETCH_AVAILABLE_TIMES',
+      };
+
+      const modifiedState = timesReducer(state, action);
+
+      expect(modifiedState).toEqual(['17:00', '18:30']);
+      expect(fetchAPI).toHaveBeenCalledWith(new Date('2022-06-22'));
+    });
+
+    test('should return same state when action type not present', () => {
+      const state = ['21:00', '22:00'];
+      const action = {
+        date: '2022-06-22',
+      };
+
+      const modifiedState = timesReducer(state, action);
+
+      expect(modifiedState).toEqual(['21:00', '22:00']);
+      expect(fetchAPI).not.toHaveBeenCalled();
+    });
   });
 });
