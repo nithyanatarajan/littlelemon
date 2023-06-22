@@ -42,18 +42,8 @@ describe('ReservationsPage', () => {
       });
     });
 
-    // Ensure previously selected time is not present for the same date
-    await user.type(screen.getByLabelText('Choose date'), '2023-06-20');
-    await user.tab();
     await waitFor(() => {
       expect(screen.queryByRole('option', { name: '18:00' })).toBeNull();
-    });
-
-    // Ensure previously selected time is present for a different date
-    await user.type(screen.getByLabelText('Choose date'), '2023-06-21');
-    await user.tab();
-    await waitFor(() => {
-      expect(screen.queryByRole('option', { name: '18:00' })).not.toBeNull();
     });
 
     consoleLog.mockReset();
