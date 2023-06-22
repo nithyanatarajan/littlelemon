@@ -27,7 +27,8 @@
     "object-curly-newline": [
       "error",
       {
-        "multiline": true
+        "multiline": true,
+        "consistent": true
       }
     ],
     "react/function-component-definition": [
