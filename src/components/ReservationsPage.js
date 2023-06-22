@@ -7,20 +7,14 @@ import {
 } from '../reducers/ReservationsReducer';
 
 const ReservationsPage = () => {
-  const [availableTimes, dispatch] = useReducer(
-    timesReducer,
-    [],
-    timesInitialiser
-  );
+  const [state, dispatch] = useReducer(timesReducer, {});
 
+  // availableTimesFor returns existing availableTimes or initialState
+  const availableTimesFor = (date) => state[date] || [...timesInitialiser()];
+
+  // updateAvailableTimesFor dispatches date and time to reducer
   const updateAvailableTimesFor = (date, time) => {
-    dispatch({ date, time });
-  };
-
-  const availableTimesFor = (date) => {
-    // eslint-disable-next-line no-console
-    console.log('availableTimesFor', date);
-    return availableTimes;
+    dispatch({ type: 'UPDATE_AVAILABLE_TIMES', date, time });
   };
 
   const handleSubmit = (values) => {
