@@ -7,7 +7,7 @@ const Footer = () => (
     <div className='logo'>
       <img
         src={Logo}
-        alt='Little Lemon Restaurant Logo'
+        alt='Little Lemon Restaurant Footer Logo'
         className='footer-img'
       />
     </div>

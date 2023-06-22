@@ -70,6 +70,7 @@ const ReservationsForm = ({
             name='firstName'
             {...formik.getFieldProps('firstName')}
             required
+            aria-label='First Name'
           />
 
           {formik.touched.firstName && formik.errors.firstName && (
@@ -86,6 +87,7 @@ const ReservationsForm = ({
             name='lastName'
             {...formik.getFieldProps('lastName')}
             required
+            aria-label='Last Name'
           />
           {formik.touched.lastName && formik.errors.lastName && (
             <div className='form-error'>{formik.errors.lastName}</div>
@@ -102,6 +104,7 @@ const ReservationsForm = ({
             {...formik.getFieldProps('date')}
             required
             onBlur={handleDateChange}
+            aria-label='Choose date'
           />
           {formik.touched.date && formik.errors.date && (
             <div className='form-error'>{formik.errors.date}</div>
@@ -116,6 +119,7 @@ const ReservationsForm = ({
             name='time'
             {...formik.getFieldProps('time')}
             required
+            aria-label='Choose time'
           >
             <option value=''>Select a time</option>
             {availableTimes.map((time) => (
@@ -141,6 +145,7 @@ const ReservationsForm = ({
             name='guests'
             {...formik.getFieldProps('guests')}
             required
+            aria-label='Number of guests'
           />
         </div>
       </div>
@@ -152,6 +157,7 @@ const ReservationsForm = ({
             name='occasion'
             {...formik.getFieldProps('occasion')}
             required
+            aria-label='Occasion'
           >
             <option value=''>Select an occasion</option>
             <option value='Birthday'>Birthday</option>
@@ -167,6 +173,7 @@ const ReservationsForm = ({
         className='primary-button'
         type='submit'
         disabled={!formik.isValid || formik.isSubmitting || !formik.dirty}
+        aria-label='Reserve a Table'
       >
         Reserve a Table
       </button>
