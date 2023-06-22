@@ -5,6 +5,7 @@ import {
   timesReducer,
   timesInitialiser,
 } from '../reducers/ReservationsReducer';
+import Hero from './Hero';
 
 const ReservationsPage = () => {
   const [availableTimes, dispatch] = useReducer(
@@ -23,14 +24,17 @@ const ReservationsPage = () => {
   };
 
   return (
-    <div className='form-wrapper'>
-      <h3>Reserve a table</h3>
-      <ReservationsForm
-        onSubmit={handleSubmit}
-        availableTimes={availableTimes}
-        updateAvailableTimesFor={updateAvailableTimesFor}
-      />
-    </div>
+    <>
+      <Hero />
+      <div className='form-wrapper'>
+        <h2>Reserve a table</h2>
+        <ReservationsForm
+          onSubmit={handleSubmit}
+          availableTimes={availableTimes}
+          updateAvailableTimesFor={updateAvailableTimesFor}
+        />
+      </div>
+    </>
   );
 };
 export default ReservationsPage;
