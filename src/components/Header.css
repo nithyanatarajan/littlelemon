@@ -11,3 +11,8 @@
   margin-right: 1rem;
   height: 4rem;
 }
+
+.header .logo:active {
+  background-color: var(--themeyellow);
+  border-radius: var(--input-border-radius);
+}
