@@ -1,13 +1,10 @@
 import { useReducer } from 'react';
-import ReservationsForm from './ReservationsForm';
-import './ReservationsPage.css';
-import {
-  timesReducer,
-  timesInitialiser,
-} from '../reducers/ReservationsReducer';
+import BookingForm from './BookingForm';
+import './BookingPage.css';
+import { timesReducer, timesInitialiser } from '../reducers/BookingReducer';
 import Hero from './Hero';
 
-const ReservationsPage = () => {
+const BookingPage = () => {
   const [availableTimes, dispatch] = useReducer(
     timesReducer,
     [],
@@ -27,8 +24,8 @@ const ReservationsPage = () => {
     <>
       <Hero />
       <div className='form-wrapper'>
-        <h2>Reserve a table</h2>
-        <ReservationsForm
+        <h2>Book a table</h2>
+        <BookingForm
           onSubmit={handleSubmit}
           availableTimes={availableTimes}
           updateAvailableTimesFor={updateAvailableTimesFor}
@@ -37,4 +34,4 @@ const ReservationsPage = () => {
     </>
   );
 };
-export default ReservationsPage;
+export default BookingPage;

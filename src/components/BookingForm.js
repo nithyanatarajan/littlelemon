@@ -1,14 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-props-no-spreading */
 import PropTypes from 'prop-types';
-import './ReservationsForm.css';
+import './BookingForm.css';
 import { useFormik } from 'formik';
 
-const ReservationsForm = ({
-  onSubmit,
-  availableTimes,
-  updateAvailableTimesFor,
-}) => {
+const BookingForm = ({ onSubmit, availableTimes, updateAvailableTimesFor }) => {
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -173,18 +169,18 @@ const ReservationsForm = ({
         className='primary-button'
         type='submit'
         disabled={!formik.isValid || formik.isSubmitting || !formik.dirty}
-        aria-label='Reserve a Table'
+        aria-label='Book a table'
       >
-        Reserve a Table
+        Book a table
       </button>
     </form>
   );
 };
 
-ReservationsForm.propTypes = {
+BookingForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   availableTimes: PropTypes.arrayOf(PropTypes.string).isRequired,
   updateAvailableTimesFor: PropTypes.func.isRequired,
 };
 
-export default ReservationsForm;
+export default BookingForm;

@@ -1,13 +1,13 @@
 import React from 'react';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import ReservationsForm from '../ReservationsForm';
+import BookingForm from '../BookingForm';
 
-describe('ReservationsForm', () => {
+describe('BookingForm', () => {
   describe('render form fields', () => {
     test('should render the form with fields and a submit button', () => {
       render(
-        <ReservationsForm
+        <BookingForm
           onSubmit={() => {}}
           availableTimes={['17:00', '18:00', '19:00']}
           updateAvailableTimesFor={() => {}}
@@ -21,7 +21,7 @@ describe('ReservationsForm', () => {
       const guestsInput = screen.getByLabelText('Number of guests');
       const occasionInput = screen.getByLabelText('Occasion');
 
-      const button = screen.getByRole('button', { name: 'Reserve a Table' });
+      const button = screen.getByRole('button', { name: 'Book a table' });
 
       expect(firstNameInput).toBeInTheDocument();
       expect(lastNameInput).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('ReservationsForm', () => {
 
     test('should render the form with no extra fields', () => {
       render(
-        <ReservationsForm
+        <BookingForm
           onSubmit={() => {}}
           availableTimes={['17:00', '18:00', '19:00']}
           updateAvailableTimesFor={() => {}}
@@ -58,7 +58,7 @@ describe('ReservationsForm', () => {
     const testErrorMessageOnBlur = async (inputLabel, errorMessage) => {
       const handleSubmit = jest.fn();
       render(
-        <ReservationsForm
+        <BookingForm
           onSubmit={handleSubmit}
           availableTimes={['17:00', '18:00', '19:00']}
           updateAvailableTimesFor={() => {}}
@@ -66,7 +66,7 @@ describe('ReservationsForm', () => {
       );
 
       const input = screen.getByLabelText(inputLabel);
-      const button = screen.getByRole('button', { name: 'Reserve a Table' });
+      const button = screen.getByRole('button', { name: 'Book a table' });
 
       await input.focus();
       await act(() => {
@@ -105,7 +105,7 @@ describe('ReservationsForm', () => {
       const handleSubmit = jest.fn();
 
       render(
-        <ReservationsForm
+        <BookingForm
           onSubmit={handleSubmit}
           availableTimes={['17:00', '18:00', '19:00']}
           updateAvailableTimesFor={() => {}}
@@ -119,7 +119,7 @@ describe('ReservationsForm', () => {
       const timeInput = screen.getByLabelText('Choose time');
       const guestsInput = screen.getByLabelText('Number of guests');
       const occasionInput = screen.getByLabelText('Occasion');
-      const button = screen.getByRole('button', { name: 'Reserve a Table' });
+      const button = screen.getByRole('button', { name: 'Book a table' });
 
       await user.type(firstNameInput, 'John');
       await user.type(lastNameInput, 'Dee');
@@ -146,7 +146,7 @@ describe('ReservationsForm', () => {
 
     test('should clear form on submission', async () => {
       render(
-        <ReservationsForm
+        <BookingForm
           onSubmit={() => {}}
           availableTimes={['17:00', '18:00', '19:00']}
           updateAvailableTimesFor={() => {}}
@@ -160,7 +160,7 @@ describe('ReservationsForm', () => {
       const timeInput = screen.getByLabelText('Choose time');
       const guestsInput = screen.getByLabelText('Number of guests');
       const occasionInput = screen.getByLabelText('Occasion');
-      const button = screen.getByRole('button', { name: 'Reserve a Table' });
+      const button = screen.getByRole('button', { name: 'Book a table' });
 
       await user.type(firstNameInput, 'John');
       await user.type(lastNameInput, 'Dee');

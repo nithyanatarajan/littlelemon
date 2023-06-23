@@ -2,7 +2,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import ReservationsPage from '../ReservationsPage';
+import BookingPage from '../BookingPage';
 import { fetchAPI } from '../../assets/api';
 
 jest.mock('../../assets/api');
@@ -26,14 +26,14 @@ function resetStubs() {
   console.log.mockRestore();
 }
 
-describe('ReservationsPage', () => {
+describe('BookingPage', () => {
   afterEach(() => {
     resetStubs();
   });
 
   test('should check availableTimes state changes', async () => {
     setupStubs();
-    render(<ReservationsPage />);
+    render(<BookingPage />);
     const user = userEvent.setup();
 
     const firstNameInput = screen.getByLabelText('First Name');
@@ -42,7 +42,7 @@ describe('ReservationsPage', () => {
     const timeInput = screen.getByLabelText('Choose time');
     const guestsInput = screen.getByLabelText('Number of guests');
     const occasionInput = screen.getByLabelText('Occasion');
-    const button = screen.getByRole('button', { name: 'Reserve a Table' });
+    const button = screen.getByRole('button', { name: 'Book a table' });
 
     expect(await screen.queryByRole('option', { name: '18:00' })).toBeNull();
     await user.type(firstNameInput, 'John');

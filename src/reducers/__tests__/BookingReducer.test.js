@@ -1,9 +1,9 @@
-import { timesInitialiser, timesReducer } from '../ReservationsReducer';
+import { timesInitialiser, timesReducer } from '../BookingReducer';
 import { fetchAPI } from '../../assets/api';
 
 jest.mock('../../assets/api');
 
-describe('ReservationsReducer', () => {
+describe('BookingReducer', () => {
   beforeEach(() => {
     fetchAPI.mockReset();
   });

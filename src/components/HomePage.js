@@ -6,19 +6,19 @@ import Hero from './Hero';
 const HomePage = () => {
   const navigate = useNavigate();
 
-  const handleReservationClick = () => {
-    navigate('/reservations');
+  const handleBookingClick = () => {
+    navigate('/booking');
   };
   return (
     <main>
       <Hero>
         <NavLink
-          to='/reservations'
+          to='/booking'
           role='button'
           className='primary-button'
-          onClick={handleReservationClick}
+          onClick={handleBookingClick}
         >
-          Reserve a Table
+          Book a Table
         </NavLink>
       </Hero>
     </main>

@@ -1,25 +1,25 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ReservationsPage from '../ReservationsPage';
-import ReservationsForm from '../ReservationsForm';
+import BookingPage from '../BookingPage';
+import BookingForm from '../BookingForm';
 import { fetchAPI } from '../../assets/api';
 
-jest.mock('../ReservationsForm', () => jest.fn(() => null));
+jest.mock('../BookingForm', () => jest.fn(() => null));
 jest.mock('../../assets/api');
-describe('ReservationsPage', () => {
+describe('BookingPage', () => {
   beforeEach(() => {
-    ReservationsForm.mockReset();
+    BookingForm.mockReset();
     fetchAPI.mockReset();
   });
 
   test('should render page title and form', () => {
     fetchAPI.mockReturnValue(['17:00', '18:30']);
-    render(<ReservationsPage />);
+    render(<BookingPage />);
 
-    const pageTitle = screen.getByText('Reserve a table');
+    const pageTitle = screen.getByText('Book a table');
 
     expect(pageTitle).toBeInTheDocument();
-    expect(ReservationsForm).toHaveBeenCalledWith(
+    expect(BookingForm).toHaveBeenCalledWith(
       expect.objectContaining({
         availableTimes: ['17:00', '18:30'],
         onSubmit: expect.any(Function),

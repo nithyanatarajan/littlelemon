@@ -13,7 +13,7 @@ const Nav = () => (
         <NavLink to='menu'>Menu</NavLink>
       </li>
       <li>
-        <NavLink to='reservations'>Reservations</NavLink>
+        <NavLink to='booking'>Booking</NavLink>
       </li>
       <li>
         <NavLink to='order'>Order Online</NavLink>
