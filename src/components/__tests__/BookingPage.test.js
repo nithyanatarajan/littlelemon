@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import BookingPage from '../BookingPage';
 import BookingForm from '../BookingForm';
-import { fetchAPI } from '../../assets/api';
+import { fetchAPI, submitAPI } from '../../assets/api';
 
 jest.mock('../BookingForm', () => jest.fn(() => null));
 jest.mock('../../assets/api');
@@ -14,10 +14,12 @@ describe('BookingPage', () => {
   beforeEach(() => {
     BookingForm.mockReset();
     fetchAPI.mockReset();
+    submitAPI.mockReset();
   });
 
   test('should render page title and form', () => {
     fetchAPI.mockReturnValue(['17:00', '18:30']);
+    submitAPI.mockReturnValue(true);
     render(<BookingPage />);
 
     const pageTitle = screen.getByText('Book a table');

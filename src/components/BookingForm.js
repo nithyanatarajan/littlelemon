@@ -40,8 +40,10 @@ const BookingForm = ({ onSubmit, availableTimes, updateAvailableTimesFor }) => {
   };
 
   const handleSubmit = (values, { resetForm }) => {
-    onSubmit(values);
-    resetForm();
+    const isSubmissionSuccess = onSubmit(values);
+    if (isSubmissionSuccess) {
+      resetForm();
+    }
   };
 
   const formik = useFormik({

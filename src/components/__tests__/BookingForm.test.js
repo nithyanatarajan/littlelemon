@@ -56,10 +56,9 @@ describe('BookingForm', () => {
 
   describe('invalid form', () => {
     const testErrorMessageOnBlur = async (inputLabel, errorMessage) => {
-      const handleSubmit = jest.fn();
       render(
         <BookingForm
-          onSubmit={handleSubmit}
+          onSubmit={() => {}}
           availableTimes={['17:00', '18:00', '19:00']}
           updateAvailableTimesFor={() => {}}
         />
@@ -102,7 +101,7 @@ describe('BookingForm', () => {
 
   describe('valid form', () => {
     test('should submit the form with valid data', async () => {
-      const handleSubmit = jest.fn();
+      const handleSubmit = jest.fn().mockReturnValue(true);
 
       render(
         <BookingForm
@@ -145,9 +144,10 @@ describe('BookingForm', () => {
     });
 
     test('should clear form on submission', async () => {
+      const handleSubmit = jest.fn().mockReturnValue(true);
       render(
         <BookingForm
-          onSubmit={() => {}}
+          onSubmit={handleSubmit}
           availableTimes={['17:00', '18:00', '19:00']}
           updateAvailableTimesFor={() => {}}
         />
@@ -168,9 +168,6 @@ describe('BookingForm', () => {
       await user.selectOptions(timeInput, '17:00');
       await user.type(guestsInput, '2');
       await user.selectOptions(occasionInput, 'Birthday');
-
-      expect(button).not.toBeDisabled();
-
       await user.click(button);
 
       await waitFor(() => {
@@ -180,6 +177,43 @@ describe('BookingForm', () => {
         expect(timeInput.value).toBe('');
         expect(guestsInput.value).toBe('1');
         expect(occasionInput.value).toBe('');
+      });
+    });
+
+    test('should not clear form when submission fails', async () => {
+      const handleSubmit = jest.fn().mockReturnValue(false);
+      render(
+        <BookingForm
+          onSubmit={handleSubmit}
+          availableTimes={['17:00', '18:00', '19:00']}
+          updateAvailableTimesFor={() => {}}
+        />
+      );
+      const user = userEvent.setup();
+
+      const firstNameInput = screen.getByLabelText('First Name');
+      const lastNameInput = screen.getByLabelText('Last Name');
+      const dateInput = screen.getByLabelText('Choose date');
+      const timeInput = screen.getByLabelText('Choose time');
+      const guestsInput = screen.getByLabelText('Number of guests');
+      const occasionInput = screen.getByLabelText('Occasion');
+      const button = screen.getByRole('button', { name: 'Book a table' });
+
+      await user.type(firstNameInput, 'John');
+      await user.type(lastNameInput, 'Dee');
+      await user.type(dateInput, '2023-06-20');
+      await user.selectOptions(timeInput, '17:00');
+      await user.type(guestsInput, '2');
+      await user.selectOptions(occasionInput, 'Birthday');
+      await user.click(button);
+
+      await waitFor(() => {
+        expect(firstNameInput.value).not.toBe('');
+        expect(lastNameInput.value).not.toBe('');
+        expect(dateInput.value).not.toBe('');
+        expect(timeInput.value).not.toBe('');
+        expect(guestsInput.value).not.toBe('1');
+        expect(occasionInput.value).not.toBe('');
       });
     });
   });

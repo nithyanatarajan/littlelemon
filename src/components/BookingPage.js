@@ -4,6 +4,7 @@ import { timesReducer, timesInitialiser } from '../reducers/BookingReducer';
 import BookingForm from './BookingForm';
 import Hero from './Hero';
 import './BookingPage.css';
+import { submitAPI } from '../assets/api';
 
 const BookingPage = () => {
   const navigate = useNavigate();
@@ -18,13 +19,15 @@ const BookingPage = () => {
   };
 
   const handleSubmit = (values) => {
-    // eslint-disable-next-line no-console
-    console.log(values);
-    const { firstName, lastName, date, time } = values;
-    const bookingData = { firstName, lastName, date, time };
-    navigate('/bookingconfirm', {
-      state: { bookingData },
-    });
+    if (submitAPI(values)) {
+      const { firstName, lastName, date, time } = values;
+      const bookingData = { firstName, lastName, date, time };
+      navigate('/bookingconfirm', {
+        state: { bookingData },
+      });
+      return true;
+    }
+    return false;
   };
 
   return (
