@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import './HomePage.css';
 import Hero from './Hero';
 
 const HomePage = () => {

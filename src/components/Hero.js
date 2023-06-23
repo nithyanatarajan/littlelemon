@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FoodImg from '../assets/restaurantfood.jpg';
+import './Hero.css';
 
 const Hero = ({ children }) => (
   <section className='hero'>

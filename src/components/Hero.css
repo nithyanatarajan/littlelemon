@@ -1,6 +1,7 @@
 .hero {
   background-color: var(--themegreen);
   margin: var(--marginreset);
+  margin-bottom: 2rem;
   padding: 2rem 2rem 2rem 0;
 }
 

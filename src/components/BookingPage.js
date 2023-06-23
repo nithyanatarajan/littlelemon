@@ -1,8 +1,8 @@
 import { useReducer } from 'react';
-import BookingForm from './BookingForm';
-import './BookingPage.css';
 import { timesReducer, timesInitialiser } from '../reducers/BookingReducer';
+import BookingForm from './BookingForm';
 import Hero from './Hero';
+import './BookingPage.css';
 
 const BookingPage = () => {
   const [availableTimes, dispatch] = useReducer(
