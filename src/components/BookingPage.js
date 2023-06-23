@@ -24,7 +24,7 @@ const BookingPage = () => {
     <>
       <Hero />
       <div className='form-wrapper'>
-        <h2>Book a table</h2>
+        <h1>Book a table</h1>
         <BookingForm
           onSubmit={handleSubmit}
           availableTimes={availableTimes}
