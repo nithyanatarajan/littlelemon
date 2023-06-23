@@ -13,6 +13,7 @@
   color: var(--themegreen);
   font-weight: bold;
   padding: 0.5rem;
+  border-radius: var(--input-border-radius);
 }
 
 .nav a:hover {
@@ -21,6 +22,10 @@
 
 .nav a:visited {
   color: var(--themehighlightdark);
+}
+
+.nav a.active {
+  background-color: var(--themeyellow);
 }
 
 @media only screen and (max-width: 767px) {
