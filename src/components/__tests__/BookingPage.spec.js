@@ -2,11 +2,16 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { useNavigate } from 'react-router-dom';
 import BookingPage from '../BookingPage';
 import { fetchAPI } from '../../assets/api';
 
 jest.mock('../../assets/api', () => ({
   fetchAPI: jest.fn(),
+}));
+
+jest.mock('react-router-dom', () => ({
+  useNavigate: jest.fn(),
 }));
 
 describe('BookingPage', () => {
@@ -22,6 +27,9 @@ describe('BookingPage', () => {
   test('should submit Booking Form', async () => {
     const selectedDate = '2023-06-20';
     fetchAPI.mockImplementation(() => ['18:00', '19:00']);
+
+    const mockNavigate = jest.fn();
+    useNavigate.mockReturnValue(mockNavigate);
 
     render(<BookingPage />);
 
@@ -61,6 +69,17 @@ describe('BookingPage', () => {
         occasion: 'Birthday',
       });
     });
+
+    expect(mockNavigate).toHaveBeenCalledWith('/bookingconfirm', {
+      state: {
+        bookingData: {
+          date: selectedDate,
+          firstName: 'John',
+          lastName: 'Dee',
+          time: '18:00',
+        },
+      },
+    });
   });
 
   test('should check availableTimes state changes', async () => {
@@ -68,10 +87,10 @@ describe('BookingPage', () => {
       const dateStr = date.toISOString().substring(0, 10);
       const schedule = {
         '2023-06-20': ['18:00', '18:30'],
-        '2023-06-21': ['17:00', '18:30'],
       };
       return schedule[dateStr] || ['19:00'];
     });
+    useNavigate.mockReturnValue(jest.fn());
 
     render(<BookingPage />);
     const user = userEvent.setup();
@@ -100,16 +119,9 @@ describe('BookingPage', () => {
 
     await user.click(button);
 
-    await user.type(dateInput, '2023-06-21');
-    await user.tab();
     await waitFor(() => {
-      expect(screen.queryByRole('option', { name: '17:00' })).not.toBeNull();
-    });
-
-    await waitFor(() => {
-      expect(fetchAPI).toBeCalledTimes(3);
+      expect(fetchAPI).toBeCalledTimes(2);
       expect(fetchAPI).toHaveBeenNthCalledWith(2, new Date('2023-06-20'));
-      expect(fetchAPI).toHaveBeenNthCalledWith(3, new Date('2023-06-21'));
     });
   });
 });

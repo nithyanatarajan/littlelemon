@@ -6,6 +6,10 @@ import { fetchAPI } from '../../assets/api';
 
 jest.mock('../BookingForm', () => jest.fn(() => null));
 jest.mock('../../assets/api');
+jest.mock('react-router-dom', () => ({
+  useNavigate: jest.fn(() => {}),
+}));
+
 describe('BookingPage', () => {
   beforeEach(() => {
     BookingForm.mockReset();
