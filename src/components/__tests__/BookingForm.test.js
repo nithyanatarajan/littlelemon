@@ -215,6 +215,12 @@ describe('BookingForm', () => {
         expect(guestsInput.value).not.toBe('1');
         expect(occasionInput.value).not.toBe('');
       });
+
+      await waitFor(() => {
+        expect(
+          screen.queryByText('Form submission failed, try again later.')
+        ).toBeInTheDocument();
+      });
     });
   });
 });

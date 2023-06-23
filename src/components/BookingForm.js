@@ -39,11 +39,14 @@ const BookingForm = ({ onSubmit, availableTimes, updateAvailableTimesFor }) => {
     return errors;
   };
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = (values, { resetForm, setStatus, setSubmitting }) => {
     const isSubmissionSuccess = onSubmit(values);
     if (isSubmissionSuccess) {
+      setStatus('success');
       resetForm();
     }
+    setStatus('error');
+    setSubmitting(false);
   };
 
   const formik = useFormik({
@@ -166,7 +169,11 @@ const BookingForm = ({ onSubmit, availableTimes, updateAvailableTimesFor }) => {
           )}
         </div>
       </div>
-
+      {formik.status === 'error' && (
+        <div className='form-error'>
+          Form submission failed, try again later.
+        </div>
+      )}
       <button
         className='primary-button'
         type='submit'
