@@ -1,20 +1,30 @@
 .footer {
+  background-color: var(--themegreen);
+  color: white;
+  margin: var(--marginreset);
+}
+
+.footer-section {
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: space-between;
-  padding-top: 1rem;
+  margin: var(--marginxy);
+  margin-top: 2rem;
+  padding: 1rem 0;
+}
+
+.footer .logo {
+  flex: 2;
 }
 
 .footer-img {
-  height: 4rem;
+  height: 6rem;
+  background-color: var(--themewhite);
+  padding: 1rem;
 }
 
 .footer .copyright {
-  border-top: 0.1rem solid var(--themegreen);
   font-size: 0.75rem;
   text-align: right;
-}
-
-.footer div {
   flex: 1;
 }
