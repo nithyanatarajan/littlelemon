@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import BookingPage from './pages/BookingPage';
 import BookingConfirmationPage from './pages/BookingConfirmationPage';
+import ComingSoonPage from './pages/ComingSoonPage';
 import './App.css';
 
 const App = () => (
@@ -14,6 +15,10 @@ const App = () => (
       <Route path='/' element={<HomePage />} />
       <Route path='/booking' element={<BookingPage />} />
       <Route path='/bookingconfirm' element={<BookingConfirmationPage />} />
+      <Route path='/about' element={<ComingSoonPage />} />
+      <Route path='/menu' element={<ComingSoonPage />} />
+      <Route path='/order' element={<ComingSoonPage />} />
+      <Route path='/login' element={<ComingSoonPage />} />
     </Routes>
     <Footer />
   </>
