@@ -12,24 +12,24 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-flow: row wrap;
 }
 
 .form-row > label {
-  flex: 1;
+  flex: 2;
 }
 
 .form-row > .form-input {
   flex: 4;
-  height: 2rem;
 }
 
 .form-input > input, select {
   border: 1px solid var(--themegreen);
   border-radius: var(--input-border-radius);
-  height: 100%;
-  width: 100%;
   background-color: var(--themewhite);
   padding: 0 0.5rem;
+  height: 2rem;
+  width: 100%;
 }
 
 .form > button {
@@ -39,4 +39,20 @@
 .form-error {
   padding-top: 0.5rem;
   color: var(--themeerror);
+}
+
+@media only screen and (max-width: 767px) {
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-input {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  .form-input > input, select {
+    border-radius: 4px;
+  }
 }
