@@ -124,6 +124,7 @@ describe('BookingForm', () => {
       await user.type(lastNameInput, 'Dee');
       await user.type(dateInput, '2023-06-20');
       await user.selectOptions(timeInput, '17:00');
+      await user.clear(guestsInput);
       await user.type(guestsInput, '2');
       await user.selectOptions(occasionInput, 'Birthday');
 
@@ -137,7 +138,7 @@ describe('BookingForm', () => {
           lastName: 'Dee',
           date: '2023-06-20',
           time: '17:00',
-          guests: 12,
+          guests: 2,
           occasion: 'Birthday',
         });
       });
@@ -166,7 +167,8 @@ describe('BookingForm', () => {
       await user.type(lastNameInput, 'Dee');
       await user.type(dateInput, '2023-06-20');
       await user.selectOptions(timeInput, '17:00');
-      await user.type(guestsInput, '2');
+      await user.clear(guestsInput);
+      await user.type(guestsInput, '10');
       await user.selectOptions(occasionInput, 'Birthday');
       await user.click(button);
 
@@ -203,6 +205,7 @@ describe('BookingForm', () => {
       await user.type(lastNameInput, 'Dee');
       await user.type(dateInput, '2023-06-20');
       await user.selectOptions(timeInput, '17:00');
+      await user.clear(guestsInput);
       await user.type(guestsInput, '2');
       await user.selectOptions(occasionInput, 'Birthday');
       await user.click(button);
