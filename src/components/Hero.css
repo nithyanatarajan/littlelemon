@@ -46,3 +46,10 @@
   object-fit: cover;
   border-radius: var(--border-radius);
 }
+
+@media only screen and (max-width: 767px) {
+  /*Temporarily disabling hero image*/
+  .hero-image {
+    display: none;
+  }
+}

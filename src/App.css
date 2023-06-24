@@ -32,7 +32,7 @@ body {
 .display-title {
   font-family: 'Markazi Text', serif;
   font-weight: 500;
-  font-size: 4rem; /* 64px = 4rem */
+  font-size: 3rem; /* 64px = 4rem */
 }
 
 /* Sub title */
@@ -127,7 +127,6 @@ p,
 .secondary-button:hover:enabled {
   color: var(--themeyellow);
 }
-
 
 h1 {
   font-weight: 500;
