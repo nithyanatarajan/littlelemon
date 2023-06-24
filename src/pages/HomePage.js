@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Hero from '../components/Hero';
+import Specials from '../components/Specials';
 
 const HomePage = () => (
   <main>
@@ -9,6 +10,7 @@ const HomePage = () => (
         Book a Table
       </NavLink>
     </Hero>
+    <Specials />
   </main>
 );
 export default HomePage;
