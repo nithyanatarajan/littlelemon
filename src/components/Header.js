@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from './Nav';
 import Logo from '../assets/headerlogo.png';
@@ -7,12 +7,19 @@ import './Header.css';
 
 const Header = () => {
   const navigate = useNavigate();
+  const [showNav, setShowNav] = useState(false);
+
   const handleClick = () => {
     navigate('/');
   };
+
+  const handleHamburgerClick = () => {
+    setShowNav(!showNav);
+  };
+
   return (
     <header className='header'>
-      <Hamburger />
+      <Hamburger onClick={handleHamburgerClick} />
       {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
       <div
         className='logo'
@@ -26,7 +33,7 @@ const Header = () => {
           className='header-img'
         />
       </div>
-      <Nav />
+      <Nav show={showNav} setShow={setShowNav} />
     </header>
   );
 };
