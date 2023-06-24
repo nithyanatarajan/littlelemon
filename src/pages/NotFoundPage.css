@@ -1,0 +1,12 @@
+.not-found-title {
+  text-align: center;
+  background-color: var(--themegreen);
+  margin: var(--marginreset);
+  color: var(--themeyellow);
+  font-size: 4rem;
+  padding: 1rem 0;
+}
+
+.not-found-subtitle {
+  margin: 2rem 0;
+}

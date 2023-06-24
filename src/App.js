@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import BookingPage from './pages/BookingPage';
 import BookingConfirmationPage from './pages/BookingConfirmationPage';
 import ComingSoonPage from './pages/ComingSoonPage';
+import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
 
 const App = () => (
@@ -19,6 +20,7 @@ const App = () => (
       <Route path='/menu' element={<ComingSoonPage />} />
       <Route path='/order' element={<ComingSoonPage />} />
       <Route path='/login' element={<ComingSoonPage />} />
+      <Route path='*' element={<NotFoundPage />} />
     </Routes>
     <Footer />
   </>
