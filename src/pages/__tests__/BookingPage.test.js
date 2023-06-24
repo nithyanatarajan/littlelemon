@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import BookingPage from '../BookingPage';
-import BookingForm from '../BookingForm';
+import BookingForm from '../../components/BookingForm';
 import { fetchAPI, submitAPI } from '../../assets/api';
 
-jest.mock('../BookingForm', () => jest.fn(() => null));
+jest.mock('../../components/BookingForm', () => jest.fn(() => null));
 jest.mock('../../assets/api');
 jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(() => {}),

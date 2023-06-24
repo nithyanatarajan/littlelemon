@@ -1,8 +1,8 @@
 import { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { timesReducer, timesInitialiser } from '../reducers/BookingReducer';
-import BookingForm from './BookingForm';
-import Hero from './Hero';
+import BookingForm from '../components/BookingForm';
+import Hero from '../components/Hero';
 import './BookingPage.css';
 import { submitAPI } from '../assets/api';
 

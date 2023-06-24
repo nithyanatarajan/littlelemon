@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import Hero from './Hero';
+import Hero from '../components/Hero';
 
 const HomePage = () => {
   const navigate = useNavigate();
