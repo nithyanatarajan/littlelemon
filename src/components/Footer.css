@@ -23,8 +23,7 @@
   padding: 1rem;
 }
 
-.footer .copyright {
+.footer .copyright > p {
   font-size: 0.75rem;
   text-align: right;
-  flex: 1;
 }
