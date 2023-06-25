@@ -3,6 +3,7 @@
 import PropTypes from 'prop-types';
 import './BookingForm.css';
 import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 const BookingForm = ({ onSubmit, availableTimes, updateAvailableTimesFor }) => {
   const initialValues = {
@@ -13,46 +14,38 @@ const BookingForm = ({ onSubmit, availableTimes, updateAvailableTimesFor }) => {
     guests: 1,
     occasion: '',
   };
-  const validateForm = (values) => {
-    const errors = {};
 
-    if (!values.firstName) {
-      errors.firstName = 'First Name is required';
-    }
+  const validationSchema = yup.object().shape({
+    firstName: yup.string().required('First Name is required'),
+    lastName: yup.string().required('Last Name is required'),
+    date: yup.date().required('Date is required'),
+    time: yup.string().required('Time is required'),
+    guests: yup
+      .number()
+      .required('Number of guests is required')
+      .min(1)
+      .max(10),
+    occasion: yup.string().required('Occasion is required'),
+  });
 
-    if (!values.lastName) {
-      errors.lastName = 'Last Name is required';
-    }
-
-    if (!values.date) {
-      errors.date = 'Date is required';
-    }
-
-    if (!values.time) {
-      errors.time = 'Time is required';
-    }
-
-    if (!values.occasion) {
-      errors.occasion = 'Occasion is required';
-    }
-
-    return errors;
-  };
-
-  const handleSubmit = (values, { resetForm, setStatus, setSubmitting }) => {
-    const isSubmissionSuccess = onSubmit(values);
+  const handleSubmit = async (
+    values,
+    { resetForm, setStatus, setSubmitting }
+  ) => {
+    const isSubmissionSuccess = await onSubmit(values);
     if (isSubmissionSuccess) {
       setStatus('success');
       resetForm();
+    } else {
+      setStatus('error');
     }
-    setStatus('error');
     setSubmitting(false);
   };
 
   const formik = useFormik({
     initialValues,
     onSubmit: handleSubmit,
-    validate: validateForm,
+    validationSchema,
   });
 
   const handleDateChange = (e) => {
