@@ -15,6 +15,7 @@ const BookingForm = ({ onSubmit, availableTimes, updateAvailableTimesFor }) => {
     guests: 1,
     occasion: '',
   };
+  const occasions = ['None', 'Birthday', 'Anniversary'];
 
   const validationSchema = yup.object().shape({
     firstName: yup.string().required('First Name is required'),
@@ -161,8 +162,11 @@ const BookingForm = ({ onSubmit, availableTimes, updateAvailableTimesFor }) => {
             aria-label='Occasion'
           >
             <option value=''>Select an occasion</option>
-            <option value='Birthday'>Birthday</option>
-            <option value='Anniversary'>Anniversary</option>
+            {occasions.map((occasion) => (
+              <option key={occasion} value={occasion}>
+                {occasion}
+              </option>
+            ))}
           </select>
           {formik.touched.occasion && formik.errors.occasion && (
             <div className='form-error'>{formik.errors.occasion}</div>
