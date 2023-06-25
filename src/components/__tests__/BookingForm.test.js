@@ -4,6 +4,16 @@ import userEvent from '@testing-library/user-event';
 import BookingForm from '../BookingForm';
 
 describe('BookingForm', () => {
+  const dateStub = new Date('2023-06-19T07:30:15.103Z');
+  beforeEach(() => {
+    jest.spyOn(global.Date, 'now').mockImplementation(() => dateStub.valueOf());
+  });
+
+  afterEach(() => {
+    global.Date.now.mockRestore();
+    jest.resetAllMocks();
+  });
+
   describe('render form fields', () => {
     test('should render the form with fields and a submit button', () => {
       render(

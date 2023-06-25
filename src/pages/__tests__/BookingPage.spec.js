@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { useNavigate } from 'react-router-dom';
 import BookingPage from '../BookingPage';
 import { fetchAPI, submitAPI } from '../../assets/api';
+import { getDateStr } from '../../utils/dateUtils';
 
 jest.mock('../../assets/api', () => ({
   fetchAPI: jest.fn(),
@@ -16,8 +17,14 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('BookingPage', () => {
+  const dateStub = new Date('2023-06-19T07:30:15.103Z');
+  beforeEach(() => {
+    jest.spyOn(global.Date, 'now').mockImplementation(() => dateStub.valueOf());
+  });
+
   afterEach(() => {
-    jest.clearAllMocks();
+    global.Date.now.mockRestore();
+    jest.resetAllMocks();
   });
 
   test('should submit Booking Form', async () => {
@@ -70,7 +77,7 @@ describe('BookingPage', () => {
 
   test('should check availableTimes state changes', async () => {
     fetchAPI.mockImplementation((date) => {
-      const dateStr = date.toISOString().substring(0, 10);
+      const dateStr = getDateStr(date);
       const schedule = {
         '2023-06-20': ['18:00', '18:30'],
         '2023-06-21': ['17:00', '17:30'],

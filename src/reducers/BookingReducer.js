@@ -1,4 +1,5 @@
 import { fetchAPI } from '../assets/api';
+import { getToday } from '../utils/dateUtils';
 
 export const timesReducer = (state, action) => {
   /*
@@ -15,4 +16,4 @@ export const timesReducer = (state, action) => {
       return state;
   }
 };
-export const timesInitialiser = () => fetchAPI(new Date());
+export const timesInitialiser = () => fetchAPI(getToday());

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import './BookingForm.css';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { getDateStr, getDateUpto, getToday } from '../utils/dateUtils';
 
 const BookingForm = ({ onSubmit, availableTimes, updateAvailableTimesFor }) => {
   const initialValues = {
@@ -18,7 +19,11 @@ const BookingForm = ({ onSubmit, availableTimes, updateAvailableTimesFor }) => {
   const validationSchema = yup.object().shape({
     firstName: yup.string().required('First Name is required'),
     lastName: yup.string().required('Last Name is required'),
-    date: yup.date().required('Date is required'),
+    date: yup
+      .date()
+      .required('Date is required')
+      .min(getToday(), 'Date cannot be in the past')
+      .max(getDateUpto(90), 'Date must be within 90 days'),
     time: yup.string().required('Time is required'),
     guests: yup
       .number()
@@ -95,6 +100,8 @@ const BookingForm = ({ onSubmit, availableTimes, updateAvailableTimesFor }) => {
             type='date'
             id='date'
             name='date'
+            min={getDateStr(getToday())}
+            max={getDateStr(getDateUpto(90))}
             {...formik.getFieldProps('date')}
             required
             onBlur={handleDateChange}
