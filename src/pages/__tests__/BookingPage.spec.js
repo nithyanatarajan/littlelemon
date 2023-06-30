@@ -88,7 +88,7 @@ describe('BookingPage', () => {
 
     render(<BookingPage />);
 
-    expect(await screen.queryByRole('option', { name: '18:00' })).toBeNull(); // Time shown is for today
+    expect(screen.queryByRole('option', { name: '18:00' })).toBeNull(); // Time shown is for today
 
     const user = userEvent.setup();
     const dateInput = screen.getByLabelText('Choose date');
@@ -97,7 +97,7 @@ describe('BookingPage', () => {
     await user.type(dateInput, '2023-06-20');
     await user.tab();
     await waitFor(() => {
-      expect(screen.queryByRole('option', { name: '18:00' })).not.toBeNull(); // Time shown is for 2023-06-20
+      expect(screen.getByRole('option', { name: '18:00' })).not.toBeNull(); // Time shown is for 2023-06-20
     });
 
     // Fetch time for date 2023-06-21
@@ -105,15 +105,14 @@ describe('BookingPage', () => {
     await user.type(dateInput, '2023-06-21');
     await user.tab();
     await waitFor(() => {
-      expect(screen.queryByRole('option', { name: '17:00' })).not.toBeNull(); // Time shown is for 2023-06-21
-      expect(screen.queryByRole('option', { name: '18:00' })).toBeNull();
+      expect(screen.getByRole('option', { name: '17:00' })).not.toBeNull(); // Time shown is for 2023-06-21
     });
+    expect(screen.queryByRole('option', { name: '18:00' })).toBeNull();
 
-    await waitFor(() => {
-      expect(fetchAPI).toBeCalledTimes(3);
-      expect(fetchAPI).toHaveBeenNthCalledWith(2, new Date('2023-06-20'));
-      expect(fetchAPI).toHaveBeenNthCalledWith(3, new Date('2023-06-21'));
-    });
+    expect(fetchAPI).toBeCalledTimes(3);
+    expect(fetchAPI).toHaveBeenNthCalledWith(1, dateStub);
+    expect(fetchAPI).toHaveBeenNthCalledWith(2, new Date('2023-06-20'));
+    expect(fetchAPI).toHaveBeenNthCalledWith(3, new Date('2023-06-21'));
   });
 
   test('should redirect on Booking Form submission success', async () => {
