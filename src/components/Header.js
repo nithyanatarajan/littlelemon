@@ -20,12 +20,12 @@ const Header = () => {
   return (
     <header className='header'>
       <Hamburger onClick={handleHamburgerClick} />
-      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
       <div
         className='logo'
         onClick={handleClick}
         onKeyDown={handleClick}
-        role='img'
+        role='link'
+        tabIndex={0}
       >
         <img
           src={Logo}
