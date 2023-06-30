@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/jsx-props-no-spreading */
 import PropTypes from 'prop-types';
 import './BookingForm.css';
 import { useFormik } from 'formik';
@@ -58,7 +56,7 @@ const BookingForm = ({ onSubmit, availableTimes, updateAvailableTimesFor }) => {
     formik.handleBlur(e);
     updateAvailableTimesFor(e.target.value);
   };
-
+  /* eslint-disable react/jsx-props-no-spreading */
   return (
     <form className='form' onSubmit={formik.handleSubmit}>
       <div className='form-row'>

@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero';
 import './BookingConfirmationPage.css';
