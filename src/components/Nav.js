@@ -10,14 +10,14 @@ const Nav = ({ show, setShow }) => {
   const additionalStyle = show ? 'show' : 'hide';
   return (
     <nav className={`nav ${additionalStyle}`}>
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-      <div
+      <button
         className='close-icon'
         onClick={handleOnClick}
         onKeyDown={handleOnClick}
+        type='button'
       >
         &#10005;
-      </div>
+      </button>
       <ul>
         <li>
           <NavLink to='' onClick={handleOnClick}>
