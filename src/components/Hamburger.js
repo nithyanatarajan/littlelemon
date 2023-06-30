@@ -2,12 +2,16 @@ import './Hamburger.css';
 import PropTypes from 'prop-types';
 
 const Hamburger = ({ onClick }) => (
-  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-  <div className='hamburger' onClick={onClick} onKeyDown={onClick}>
+  <button
+    className='hamburger'
+    onClick={onClick}
+    type='button'
+    aria-label='Open the menu'
+  >
     <span />
     <span />
     <span />
-  </div>
+  </button>
 );
 
 Hamburger.propTypes = {
