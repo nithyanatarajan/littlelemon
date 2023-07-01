@@ -3,8 +3,6 @@
   flex-flow: row wrap;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
-  padding-top: 1rem;
 }
 
 .header-img {
@@ -18,7 +16,6 @@
 @media only screen and (min-width: 768px) {
   .header .logo:active {
     background-color: var(--themeyellow);
-    border-radius: var(--input-border-radius);
   }
 }
 
